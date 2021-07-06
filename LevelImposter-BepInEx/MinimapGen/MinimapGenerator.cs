@@ -11,7 +11,7 @@ namespace LevelImposter.MinimapGen
         private Minimap map;
         public Generator[] generators;
 
-        public const float MAP_SCALE = 0.2f;
+        public const float MAP_SCALE = 0.1f;
         public const float OFFSET_X = 14.5f;
         public const float OFFSET_Y = 21.4f;
 
