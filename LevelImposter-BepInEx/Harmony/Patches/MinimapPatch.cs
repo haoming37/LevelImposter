@@ -23,9 +23,13 @@ namespace LevelImposter.Harmony.Patches
             mapApplicator.Finish();
         }
     }
+
      [HarmonyPatch(typeof(MapBehaviour), nameof(MapBehaviour.FixedUpdate))]
      public static class FixedUpdatePatch{
          public static bool Prefix(MapBehaviour __instance){
+
+            if(ShipStatus.Instance.name != "PolusShip(Clone)") return true;
+
              System.Console.WriteLine("FixedUpdatePatch");
              if (!ShipStatus.Instance)
              {
@@ -42,16 +46,13 @@ namespace LevelImposter.Harmony.Patches
              return false;
          }
      }
-     // [HarmonyPatch(typeof(MapBehaviour), nameof(MapBehaviour.GenericShow))]
-     // public static class GenericShowPatch{
-     //     public static void Postfix(MapBehaviour __instance){
-     //         __instance.taskOverlay.transform.localScale /= 2;
 
-     //     }
-     // }
      [HarmonyPatch(typeof(MapTaskOverlay), nameof(MapTaskOverlay.SetIconLocation))]
      public static class SetIconLocationPatch{
              public static void Postfix(MapTaskOverlay __instance, PlayerTask task){
+
+                if(ShipStatus.Instance.name != "PolusShip(Clone)") return;
+
                 //Il2CppSystem.Collections.Generic.Dictionary<string, PooledMapIcon> data = Traverse.Create(__instance).Field("data").GetValue() as Il2CppSystem.Collections.Generic.Dictionary<string, PooledMapIcon>;
                 Il2CppSystem.Collections.Generic.Dictionary<string, PooledMapIcon> data = __instance.data;
                 for (int i = 0; i < task.Locations.Count; i++)
